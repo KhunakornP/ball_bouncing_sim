@@ -1,6 +1,15 @@
 import turtle
 import random
 
+
+class Ball:
+    def __init__(self, color, size, height, location):
+        self.color = color
+        self.size = size
+        self.height = height
+        self.location = location
+
+
 def draw_circle(color, size, x, y):
     # draw a circle of radius equals to size at x, y coordinates and paint it with color
     turtle.penup()
