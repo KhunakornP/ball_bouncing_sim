@@ -38,7 +38,8 @@ class Ball:
         return self.height
 
     def draw_circle(self):
-        # draw a circle of radius equals to size at x, y coordinates and paint it with color
+        # draw a circle of radius equals to size at x, y coordinates
+        # and paint it with color.
         turtle.penup()
         turtle.color(self.color)
         turtle.fillcolor(self.color)
