@@ -3,23 +3,24 @@ import random
 
 
 class Ball:
-    def __init__(self, color, size, height, location):
+    def __init__(self, color=(0,0,0), size=100, vx=0, vy=0, px=0, py=0):
         self.color = color
         self.size = size
-        self.height = height
-        self.location = location
+        self.speed_x = vx
+        self.speed_y = vy
+        self.position_x = px
+        self.position_y = py
 
-
-def draw_circle(color, size, x, y):
-    # draw a circle of radius equals to size at x, y coordinates and paint it with color
-    turtle.penup()
-    turtle.color(color)
-    turtle.fillcolor(color)
-    turtle.goto(x,y)
-    turtle.pendown()
-    turtle.begin_fill()
-    turtle.circle(size)
-    turtle.end_fill()
+    def draw_circle(self):
+        # draw a circle of radius equals to size at x, y coordinates and paint it with color
+        turtle.penup()
+        turtle.color(self.color)
+        turtle.fillcolor(self.color)
+        turtle.goto(self.position_x,self.position_y)
+        turtle.pendown()
+        turtle.begin_fill()
+        turtle.circle(self.size)
+        turtle.end_fill()
 
 def move_circle(i, xpos, ypos, vx, vy, canvas_width, canvas_height, ball_radius):
     # update the x, y coordinates of ball i with velocity in the x (vx) and y (vy) components
@@ -42,3 +43,6 @@ def initilizing(xpos, ypos, vx, vy, ball_color, canvas_width, canvas_height, bal
         vx.append(random.randint(1, 0.01*canvas_width))
         vy.append(random.randint(1, 0.01*canvas_height))
         ball_color.append((random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)))
+
+x = Ball()
+x.draw_circle()
