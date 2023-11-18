@@ -1,5 +1,4 @@
 import turtle
-import random
 
 
 class Ball:
@@ -37,13 +36,13 @@ class Ball:
     def get_height(self):
         return self.height
 
-    def draw_circle(self):
+    def draw_circle(self, index):
         # draw a circle of radius equals to size at x, y coordinates
         # and paint it with color.
         turtle.penup()
-        turtle.color(self.color)
-        turtle.fillcolor(self.color)
-        turtle.goto(self.position_x,self.position_y)
+        turtle.color(self.color[index])
+        turtle.fillcolor(self.color[index])
+        turtle.goto(self.position_x[index], self.position_y[index])
         turtle.pendown()
         turtle.begin_fill()
         turtle.circle(self.size)
@@ -52,24 +51,16 @@ class Ball:
     def move_circle(self, index):
         # update the x, y coordinates of ball i with velocity in the x (vx)
         # and y (vy) components
-        self.position_x[index] += self.position_x[index]
-        self.position_y[index] += self.position_y[index]
+        self.position_x[index] += self.speed_x[index]
+        self.position_y[index] += self.speed_y[index]
 
         # if the ball hits the side walls, reverse the vx velocity
-        if (abs(self.position_x[index] + self.position_x[index])
+        if (abs(self.position_x[index] + self.speed_x[index])
                 > (self.width - self.size)):
-            self.position_x[index] = -self.position_x[index]
+            self.speed_x[index] = -self.speed_x[index]
 
         # if the ball hits the ceiling or the floor, reverse the vy velocity
-        if (abs(self.position_y[index] + self.position_y[index])
+        if (abs(self.position_y[index] + self.speed_y[index])
                 > (self.height - self.size)):
-            self.position_y[index] = -self.position_y[index]
+            self.speed_y[index] = -self.speed_y[index]
 
-def initilizing(xpos, ypos, vx, vy, ball_color, canvas_width, canvas_height, ball_radius, num_balls):
-    # create random number of balls, num_balls, located at random positions within the canvas; each ball has a random velocity value in the x and y direction and is painted with a random color
-    for i in range(num_balls):
-        xpos.append(random.randint(-1*canvas_width + ball_radius, canvas_width - ball_radius))
-        ypos.append(random.randint(-1*canvas_height + ball_radius, canvas_height - ball_radius))
-        vx.append(random.randint(1, 0.01*canvas_width))
-        vy.append(random.randint(1, 0.01*canvas_height))
-        ball_color.append((random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)))

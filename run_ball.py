@@ -1,9 +1,9 @@
 import turtle
 import ball
-
+import random
 class Interface:
     def __init__(self):
-        self.num_balls = int(input("Number of balls to simulate: "))
+        self.__num_balls = int(input("Number of balls to simulate: "))
         turtle.speed(0)
         turtle.tracer(0)
         turtle.hideturtle()
@@ -11,22 +11,45 @@ class Interface:
         self.__canvas_height = turtle.screensize()[1]
         self.__ball_radius = 0.05 * self.__canvas_width
         turtle.colormode(255)
-        self.color_list = []
         self.xpos = []
         self.ypos = []
         self.vx = []
         self.vy = []
         self.ball_color = []
+
     def generate(self):
-        pass
+        # create random number of balls, num_balls, located at random
+        # positions within the canvas; each ball has a random velocity
+        # value in the x and y direction and is painted with a random color
+        for i in range(self.__num_balls):
+            self.xpos.append(random.randint(-1 * self.__canvas_width
+                                            + self.__ball_radius,
+                                            self.__canvas_width
+                                            -self.__ball_radius))
+            self.ypos.append(random.randint(-1 * self.__canvas_height
+                                            + self.__ball_radius,
+                                            self.__canvas_height
+                                            - self.__ball_radius))
+            self.vx.append(random.randint(1, 0.01 * self.__canvas_width))
+            self.vy.append(random.randint(1, 0.01 * self.__canvas_height))
+            self.ball_color.append((random.randint(0, 255),
+                                    random.randint(0, 255),
+                                    random.randint(0, 255)))
 
     def run(self):
-        while (True):
+        balls = ball.Ball(self.ball_color, self.__ball_radius, self.vx, self.vy,
+                          self.xpos, self.ypos, self.__canvas_width,
+                          self.__canvas_height)
+        while True:
             turtle.clear()
-            for i in range(self.num_balls):
-                ball.draw_circle(ball_color[i], ball_radius, xpos[i], ypos[i])
-                ball.move_circle(i, xpos, ypos, vx, vy, canvas_width, canvas_height, ball_radius)
+            for i in range(self.__num_balls):
+                balls.draw_circle(i)
+                balls.move_circle(i)
             turtle.update()
+        turtle.done()
 
 # hold the window; close it by clicking the window close 'x' mark
-turtle.done()
+if __name__ == '__main__':
+    t = Interface()
+    t.generate()
+    t.run()
